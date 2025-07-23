@@ -1,0 +1,1 @@
+export { InputOTP } from "@/components/ui/input-otp"

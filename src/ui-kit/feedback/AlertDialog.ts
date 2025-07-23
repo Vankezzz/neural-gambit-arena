@@ -1,0 +1,1 @@
+export { AlertDialog } from "@/components/ui/alert-dialog"
