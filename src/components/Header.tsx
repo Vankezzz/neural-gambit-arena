@@ -9,10 +9,16 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
 import { Brain, Menu, X } from "lucide-react";
+import { sendTelegramMessage, formatButtonClickMessage } from "@/lib/telegram";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+
+  const handleButtonClick = async (buttonText: string) => {
+    const message = formatButtonClickMessage(buttonText, navigator.userAgent);
+    await sendTelegramMessage(message);
+  };
 
   return (
     <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
@@ -65,7 +71,11 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="cyber" size="sm">
+            <Button 
+              variant="cyber" 
+              size="sm"
+              onClick={() => handleButtonClick("Подключиться")}
+            >
               Подключиться
             </Button>
           </div>
@@ -106,7 +116,12 @@ const Header = () => {
               >
                 Рейтинг
               </Link>
-              <Button variant="cyber" size="sm" className="mt-4">
+              <Button 
+                variant="cyber" 
+                size="sm" 
+                className="mt-4"
+                onClick={() => handleButtonClick("Подключиться")}
+              >
                 Подключиться
               </Button>
             </div>

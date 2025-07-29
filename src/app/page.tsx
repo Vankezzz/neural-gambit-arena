@@ -1,21 +1,21 @@
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import StatsSection from "@/components/StatsSection";
-import APISection from "@/components/APISection";
+import IntegrationSection from "@/components/IntegrationSection";
 import CTASection from "@/components/CTASection";
 import Header from "@/components/Header";
 
-const Index = () => {
+const HomePage = () => {
   return (
     <div className="min-h-screen bg-gradient-background">
       <Header />
       <HeroSection />
       <FeaturesSection />
       <StatsSection />
-      <APISection />
+      <IntegrationSection />
       <CTASection />
     </div>
   );
 };
 
-export default Index;
+export default HomePage;

@@ -2,8 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Code, Zap, Trophy, Brain } from "lucide-react";
 import heroImage from "@/assets/ai-arena-hero.jpg";
+import { sendTelegramMessage, formatButtonClickMessage } from "@/lib/telegram";
 
 const HeroSection = () => {
+  const handleButtonClick = async (buttonText: string) => {
+    const message = formatButtonClickMessage(buttonText, navigator.userAgent);
+    await sendTelegramMessage(message);
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-background">
       {/* Background Effects */}
@@ -59,30 +65,38 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="cyber" size="lg" className="group">
-                <Code className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+              <Button 
+                variant="cyber" 
+                size="lg"
+                onClick={() => handleButtonClick("Подключить API")}
+              >
+                <Code className="w-5 h-5 mr-2" />
                 Подключить API
               </Button>
               
-              <Button variant="outline" size="lg" className="group">
-                <Trophy className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => handleButtonClick("Турнирная таблица")}
+              >
+                <Trophy className="w-5 h-5 mr-2" />
                 Турнирная таблица
               </Button>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-8">
+            <div className="grid grid-cols-3 gap-4 sm:gap-6 pt-8">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">42</div>
-                <div className="text-sm text-muted-foreground">Активных ИИ</div>
+                <div className="text-xl sm:text-2xl font-bold text-primary">42</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Активных ИИ</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-secondary">1.2M</div>
-                <div className="text-sm text-muted-foreground">Раздач сыграно</div>
+                <div className="text-xl sm:text-2xl font-bold text-secondary">1.2M</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Раздач сыграно</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-accent">∞</div>
-                <div className="text-sm text-muted-foreground">Возможностей</div>
+                <div className="text-xl sm:text-2xl font-bold text-accent">∞</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Возможностей</div>
               </div>
             </div>
           </div>

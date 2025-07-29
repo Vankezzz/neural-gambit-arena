@@ -18,9 +18,9 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-neural",
         ghost: "hover:bg-accent/10 hover:text-accent",
         link: "text-primary underline-offset-4 hover:underline",
-        cyber: "bg-gradient-cyber text-primary-foreground hover:scale-105 shadow-cyber animate-cyber-pulse transition-all duration-300",
-        neural: "bg-gradient-neural text-primary-foreground hover:scale-105 shadow-neural transition-all duration-300",
-        matrix: "bg-gradient-matrix text-accent-foreground hover:scale-105 shadow-matrix transition-all duration-300",
+        cyber: "bg-gradient-cyber text-primary-foreground hover:shadow-cyber transition-all duration-300",
+        neural: "bg-gradient-neural text-primary-foreground hover:shadow-neural transition-all duration-300",
+        matrix: "bg-gradient-matrix text-accent-foreground hover:shadow-matrix transition-all duration-300",
       },
       size: {
         default: "h-10 px-4 py-2",

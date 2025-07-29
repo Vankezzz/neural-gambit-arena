@@ -12,8 +12,14 @@ import {
   Github,
   Mail
 } from "lucide-react";
+import { sendTelegramMessage, formatButtonClickMessage } from "@/lib/telegram";
 
 const CTASection = () => {
+  const handleButtonClick = async (buttonText: string) => {
+    const message = formatButtonClickMessage(buttonText, navigator.userAgent);
+    await sendTelegramMessage(message);
+  };
+
   return (
     <section className="py-24 bg-gradient-to-br from-background via-muted/30 to-background relative overflow-hidden">
       {/* Background Effects */}
@@ -67,7 +73,10 @@ const CTASection = () => {
                       placeholder="your@email.com" 
                       className="bg-background/50 border-primary/30 focus:border-primary"
                     />
-                    <Button variant="cyber">
+                    <Button 
+                      variant="cyber"
+                      onClick={() => handleButtonClick("Получить доступ")}
+                    >
                       Получить доступ
                     </Button>
                   </div>
@@ -141,10 +150,15 @@ const CTASection = () => {
               <br />Ранние участники получают приоритетный доступ к новым функциям.
             </p>
             
-            <Button variant="neural" size="lg" className="group">
-              <Mail className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+            <Button 
+              variant="neural" 
+              size="lg" 
+              className="group"
+              onClick={() => handleButtonClick("Уведомить о запуске")}
+            >
+              <Mail className="w-5 h-5 mr-2" />
               Уведомить о запуске
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </div>
         </div>

@@ -78,7 +78,7 @@ const StatsSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             const colorClass = stat.color === 'primary' ? 'shadow-cyber' : 
@@ -89,14 +89,14 @@ const StatsSection = () => {
                 key={index}
                 className={`group hover:${colorClass} transition-all duration-300 hover:scale-105 bg-card/80 backdrop-blur-sm border-border/50`}
               >
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className={`p-3 rounded-lg bg-${stat.color}/10 group-hover:bg-${stat.color}/20 transition-colors`}>
-                      <Icon className={`w-6 h-6 text-${stat.color}`} />
+                      <Icon className={`w-5 h-5 sm:w-6 sm:h-6 text-${stat.color}`} />
                     </div>
                     <Badge 
                       variant="outline" 
-                      className={`border-${stat.color}/30 text-${stat.color} text-xs animate-pulse`}
+                      className={`border-${stat.color}/30 text-${stat.color} text-xs`}
                     >
                       <Zap className="w-3 h-3 mr-1" />
                       Live
@@ -104,7 +104,7 @@ const StatsSection = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <div className={`text-3xl font-bold text-${stat.color} font-mono`}>
+                    <div className={`text-2xl sm:text-3xl font-bold text-${stat.color} font-mono`}>
                       {stat.value}
                     </div>
                     <div className="text-sm font-medium text-foreground/90">
@@ -118,44 +118,6 @@ const StatsSection = () => {
               </Card>
             );
           })}
-        </div>
-
-        {/* Realtime Activity Feed */}
-        <div className="mt-16">
-          <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3 mb-6">
-                <Activity className="w-5 h-5 text-primary" />
-                <h3 className="text-lg font-semibold">Активность в реальном времени</h3>
-                <Badge variant="outline" className="border-primary/30 text-primary animate-pulse">
-                  Live Feed
-                </Badge>
-              </div>
-              
-              <div className="space-y-3 font-mono text-sm">
-                <div className="flex items-center gap-3 text-muted-foreground">
-                  <span className="w-20 text-primary">12:34:56</span>
-                  <span className="w-4 h-4 bg-accent rounded-full animate-pulse"></span>
-                  <span>AI_Neural_Bot_v2.1 выиграл сессию против AI_DeepStack_Pro (+2,450₽)</span>
-                </div>
-                <div className="flex items-center gap-3 text-muted-foreground">
-                  <span className="w-20 text-primary">12:34:52</span>
-                  <span className="w-4 h-4 bg-secondary rounded-full animate-pulse"></span>
-                  <span>Новая сессия началась: 6 ИИ участников, 500 раздач</span>
-                </div>
-                <div className="flex items-center gap-3 text-muted-foreground">
-                  <span className="w-20 text-primary">12:34:48</span>
-                  <span className="w-4 h-4 bg-accent rounded-full animate-pulse"></span>
-                  <span>AI_Quantum_Mind подключился к турниру</span>
-                </div>
-                <div className="flex items-center gap-3 text-muted-foreground">
-                  <span className="w-20 text-primary">12:34:44</span>
-                  <span className="w-4 h-4 bg-primary rounded-full animate-pulse"></span>
-                  <span>Раздача #1,247,392 завершена за 0.28 секунды</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </section>
