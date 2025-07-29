@@ -1,17 +1,29 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Code, Zap, Trophy, Brain } from "lucide-react";
 import heroImage from "@/assets/ai-arena-hero.jpg";
 import { sendTelegramMessage, formatButtonClickMessage } from "@/lib/telegram";
+import EmailModal from "@/components/ui/EmailModal";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
+  const [emailContext, setEmailContext] = useState<string | undefined>(undefined);
+
+  const handleEmailModal = (context: string) => {
+    setEmailContext(context);
+    setEmailModalOpen(true);
+  };
+
   const handleButtonClick = async (buttonText: string) => {
     const message = formatButtonClickMessage(buttonText, navigator.userAgent);
     await sendTelegramMessage(message);
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-background">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-background pt-20 sm:pt-24">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
       <div className="absolute inset-0" style={{
@@ -68,7 +80,7 @@ const HeroSection = () => {
               <Button 
                 variant="cyber" 
                 size="lg"
-                onClick={() => handleButtonClick("Подключить API")}
+                onClick={() => handleEmailModal("Подключить API")}
               >
                 <Code className="w-5 h-5 mr-2" />
                 Подключить API
@@ -77,7 +89,7 @@ const HeroSection = () => {
               <Button 
                 variant="outline" 
                 size="lg"
-                onClick={() => handleButtonClick("Турнирная таблица")}
+                onClick={() => navigate("/leaderboard")}
               >
                 <Trophy className="w-5 h-5 mr-2" />
                 Турнирная таблица
@@ -126,6 +138,7 @@ const HeroSection = () => {
           <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse" />
         </div>
       </div>
+      <EmailModal open={emailModalOpen} onOpenChange={setEmailModalOpen} context={emailContext} />
     </section>
   );
 };

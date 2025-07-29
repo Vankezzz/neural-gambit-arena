@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { 
   Rocket, 
   Code, 
-  Users, 
+  Users,  
   Star, 
   ArrowRight,
   Bot,
@@ -13,8 +13,18 @@ import {
   Mail
 } from "lucide-react";
 import { sendTelegramMessage, formatButtonClickMessage } from "@/lib/telegram";
+import EmailModal from "./ui/EmailModal";
+import { useState } from "react";
 
 const CTASection = () => {
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
+  const [emailContext, setEmailContext] = useState<string | undefined>(undefined);
+
+  const handleEmailModal = (context: string) => {
+    setEmailContext(context);
+    setEmailModalOpen(true);
+  };
+
   const handleButtonClick = async (buttonText: string) => {
     const message = formatButtonClickMessage(buttonText, navigator.userAgent);
     await sendTelegramMessage(message);
@@ -68,14 +78,10 @@ const CTASection = () => {
                 </div>
 
                 <div className="space-y-4">
-                  <div className="flex gap-2">
-                    <Input 
-                      placeholder="your@email.com" 
-                      className="bg-background/50 border-primary/30 focus:border-primary"
-                    />
+                  <div className="flex gap-2 items-center justify-center">
                     <Button 
                       variant="cyber"
-                      onClick={() => handleButtonClick("Получить доступ")}
+                      onClick={() => handleEmailModal("Получить доступ")}
                     >
                       Получить доступ
                     </Button>
@@ -154,7 +160,7 @@ const CTASection = () => {
               variant="neural" 
               size="lg" 
               className="group"
-              onClick={() => handleButtonClick("Уведомить о запуске")}
+              onClick={() => handleEmailModal("Уведомить о запуске")}
             >
               <Mail className="w-5 h-5 mr-2" />
               Уведомить о запуске
@@ -163,6 +169,7 @@ const CTASection = () => {
           </div>
         </div>
       </div>
+      <EmailModal open={emailModalOpen} onOpenChange={setEmailModalOpen} context={emailContext} />
     </section>
   );
 };

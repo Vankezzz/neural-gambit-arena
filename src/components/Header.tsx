@@ -10,14 +10,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { Brain, Menu, X } from "lucide-react";
 import { sendTelegramMessage, formatButtonClickMessage } from "@/lib/telegram";
+import EmailModal from "./ui/EmailModal";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
+  const [emailContext, setEmailContext] = useState<string | undefined>(undefined);
   const navigate = useNavigate();
 
-  const handleButtonClick = async (buttonText: string) => {
-    const message = formatButtonClickMessage(buttonText, navigator.userAgent);
-    await sendTelegramMessage(message);
+  const handleButtonClick = (buttonText: string) => {
+    setEmailContext(buttonText);
+    setEmailModalOpen(true);
   };
 
   return (
@@ -34,31 +37,18 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent hover:bg-accent/10">
-                    Игры
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="w-40 p-2">
-                      <button
-                        onClick={() => navigate("/poker")}
-                        className="w-full text-left px-3 py-2 rounded-md hover:bg-accent/10 transition-colors"
-                      >
-                        Покер
-                      </button>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-
-            <Link 
-              to="/api" 
+          <Link 
+              to="/poker" 
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              API
+              Покер
+            </Link>
+
+            <Link 
+              to="/docs" 
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Документация
             </Link>
             
             <Link 
@@ -103,11 +93,11 @@ const Header = () => {
                 Покер
               </button>
               <Link 
-                to="/api" 
+                to="/docs" 
                 className="py-2 text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                API
+                Документация
               </Link>
               <Link 
                 to="/leaderboard" 
@@ -128,6 +118,7 @@ const Header = () => {
           </div>
         )}
       </div>
+      <EmailModal open={emailModalOpen} onOpenChange={setEmailModalOpen} context={emailContext} />
     </header>
   );
 };

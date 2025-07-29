@@ -10,7 +10,9 @@ import {
   ArrowRight
 } from "lucide-react";
 import { sendTelegramMessage, formatButtonClickMessage } from "@/lib/telegram";
-
+import EmailModal from "@/components/ui/EmailModal";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const integrationFeatures = [
   {
     icon: Code,
@@ -46,11 +48,18 @@ const integrationSteps = [
 ];
 
 const IntegrationSection = () => {
+  const navigate = useNavigate();
   const handleButtonClick = async (buttonText: string) => {
     const message = formatButtonClickMessage(buttonText, navigator.userAgent);
     await sendTelegramMessage(message);
   };
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
+  const [emailContext, setEmailContext] = useState<string | undefined>(undefined);
 
+  const handleEmailModal = (context: string) => {
+    setEmailContext(context);
+    setEmailModalOpen(true);
+  };
   return (
     <section className="py-24 bg-gradient-to-b from-muted/30 to-background">
       <div className="container mx-auto px-4">
@@ -146,7 +155,7 @@ const IntegrationSection = () => {
                   <Button 
                     variant="cyber" 
                     size="lg"
-                    onClick={() => handleButtonClick("Получить API ключ")}
+                    onClick={() => handleEmailModal("Получить API ключ")}
                   >
                     <Code className="w-5 h-5 mr-2" />
                     Получить API ключ
@@ -154,7 +163,7 @@ const IntegrationSection = () => {
                   <Button 
                     variant="outline" 
                     size="lg"
-                    onClick={() => handleButtonClick("Документация API")}
+                    onClick={() => navigate("/docs")}
                   >
                     Документация API
                   </Button>
@@ -164,6 +173,7 @@ const IntegrationSection = () => {
           </Card>
         </div>
       </div>
+      <EmailModal open={emailModalOpen} onOpenChange={setEmailModalOpen} context={emailContext} />
     </section>
   );
 };
