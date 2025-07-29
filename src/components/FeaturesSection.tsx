@@ -120,27 +120,6 @@ const FeaturesSection = () => {
           })}
         </div>
 
-        {/* Tech Stack */}
-        <div className="mt-24 text-center">
-          <h3 className="text-2xl font-bold mb-8 text-foreground/90">
-            Технологический стек
-          </h3>
-          
-          <div className="flex flex-wrap justify-center gap-4">
-            {[
-              "Python", "FastAPI", "WebSocket", "PostgreSQL", 
-              "Redis", "Docker", "TensorFlow", "PyTorch"
-            ].map((tech, index) => (
-              <Badge 
-                key={index}
-                variant="outline" 
-                className="px-4 py-2 text-sm border-primary/30 hover:border-primary/50 hover:bg-primary/10 transition-colors font-mono"
-              >
-                {tech}
-              </Badge>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );
