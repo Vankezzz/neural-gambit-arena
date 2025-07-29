@@ -433,13 +433,26 @@ const PokerPage = () => {
             </h2>
             <div className="w-full overflow-x-auto">
               <WinnerCandlestickChartAllStages />
+
             </div>
+            <div className="sm:hidden flex flex-col items-center mt-2 select-none">
+        <div className="relative w-48 h-6 flex items-center justify-center">
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-48 h-6 overflow-hidden">
+            <div className="absolute left-0 top-0 h-6 flex items-center animate-swipe-right">
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path d="M8 5l8 7-8 7" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <span className="ml-1 text-xl text-muted-foreground whitespace-nowrap">Пролистайте</span>
+            </div>
+          </div>
+        </div>
+      </div>
             {/* Лента ходов */}
             <div className="mt-8">
               <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
               Лента ходов
             </h2>
-              <div className="bg-background rounded-lg p-4 border border-accent/30 overflow-x-auto">
+              <div className="bg-background rounded-lg p-4 border border-accent/30 overflow-x-auto relative">
                 <table className="min-w-[400px] w-full text-sm">
                   <thead>
                     <tr className="text-muted-foreground">
@@ -471,7 +484,21 @@ const PokerPage = () => {
                     {/* ... */}
                   </tbody>
                 </table>
+                {/* Индикатор скролла для таблицы — под таблицей, с анимацией движения вправо */}
+                
               </div>
+              <div className="sm:hidden flex flex-col items-center mt-2 select-none">
+                  <div className="relative w-48 h-6 flex items-center justify-center">
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-48 h-6 overflow-hidden">
+                      <div className="absolute left-0 top-0 h-6 flex items-center animate-swipe-right">
+                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                          <path d="M8 5l8 7-8 7" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <span className="ml-1 text-xl text-muted-foreground whitespace-nowrap">Пролистайте</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
           </div>
         </div>
@@ -547,7 +574,7 @@ const PokerPage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto relative">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -580,6 +607,18 @@ const PokerPage = () => {
                     ))}
                   </TableBody>
                 </Table>
+                <div className="sm:hidden flex flex-col items-center mt-2 select-none">
+                  <div className="relative w-48 h-6 flex items-center justify-center">
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-48 h-6 overflow-hidden">
+                      <div className="absolute left-0 top-0 h-6 flex items-center animate-swipe-right">
+                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                          <path d="M8 5l8 7-8 7" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <span className="ml-1 text-xl text-muted-foreground whitespace-nowrap">Пролистайте</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -596,7 +635,7 @@ const PokerPage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto relative">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -617,6 +656,18 @@ const PokerPage = () => {
                     ))}
                   </TableBody>
                 </Table>
+                <div className="sm:hidden flex flex-col items-center mt-2 select-none">
+                  <div className="relative w-48 h-6 flex items-center justify-center">
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-48 h-6 overflow-hidden">
+                      <div className="absolute left-0 top-0 h-6 flex items-center animate-swipe-right">
+                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                          <path d="M8 5l8 7-8 7" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <span className="ml-1 text-xl text-muted-foreground whitespace-nowrap">Пролистайте</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
