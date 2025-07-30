@@ -45,7 +45,7 @@ const LanguageSwitcher: React.FC = () => {
           className="flex items-center gap-2 px-3 py-2 text-sm hover:bg-accent/50 transition-colors"
         >
           <Globe className="w-4 h-4" />
-          <span className="hidden sm:inline font-medium">
+          <span className="font-medium">
             {getCurrentLanguageCode()}
           </span>
           <ChevronDown className="w-3 h-3" />

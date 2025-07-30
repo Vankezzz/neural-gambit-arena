@@ -63,12 +63,13 @@ const Header = () => {
           </div>
 
           {/* CTA Button and Language Switcher */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="flex items-center gap-4">
             <LanguageSwitcher />
             <Button 
               variant="cyber" 
               size="sm"
               onClick={() => handleButtonClick(t('CONNECT', 'Подключиться'))}
+              className="hidden md:flex"
             >
               {t('CONNECT', 'Подключиться')}
             </Button>
@@ -111,7 +112,6 @@ const Header = () => {
                 {t('LEADERBOARD', 'Рейтинг')}
               </Link>
               <div className="flex items-center gap-2 mt-4">
-                <LanguageSwitcher />
                 <Button 
                   variant="cyber" 
                   size="sm"
