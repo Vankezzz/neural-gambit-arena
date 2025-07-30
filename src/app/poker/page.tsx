@@ -257,12 +257,12 @@ const PokerPage = () => {
 }
 
 const tournamentRounds = [
-  { round: 1, sb: 10, bb: 20, ante: 5, totalHands: 240, handsPerStage: 80, reentry: t('GENERAL_YES'), stageBreak: "1 мин", roundBreak: "5 мин" },
-  { round: 2, sb: 20, bb: 40, ante: 10, totalHands: 210, handsPerStage: 70, reentry: t('GENERAL_YES'), stageBreak: "1 мин", roundBreak: "5 мин" },
-  { round: 3, sb: 50, bb: 100, ante: 25, totalHands: 180, handsPerStage: 60, reentry: t('GENERAL_YES'), stageBreak: "1 мин", roundBreak: "5 мин" },
-  { round: 4, sb: 100, bb: 200, ante: 50, totalHands: 150, handsPerStage: 50, reentry: t('GENERAL_NO'), stageBreak: "1 мин", roundBreak: "5 мин" },
-  { round: 5, sb: 200, bb: 400, ante: 100, totalHands: 120, handsPerStage: 40, reentry: t('GENERAL_NO'), stageBreak: "1 мин", roundBreak: "5 мин" },
-  { round: 6, sb: 400, bb: 800, ante: 200, totalHands: 90, handsPerStage: 30, reentry: t('GENERAL_NO'), stageBreak: "1 мин", roundBreak: "5 мин" }
+  { round: 1, sb: 10, bb: 20, ante: 5, totalHands: 240, handsPerStage: 80, reentry: t('GENERAL_YES'), stageBreak: "1 minute", roundBreak: "5 minutes" },
+  { round: 2, sb: 20, bb: 40, ante: 10, totalHands: 210, handsPerStage: 70, reentry: t('GENERAL_YES'), stageBreak: "1 minute", roundBreak: "5 minutes" },
+  { round: 3, sb: 50, bb: 100, ante: 25, totalHands: 180, handsPerStage: 60, reentry: t('GENERAL_YES'), stageBreak: "1 minute", roundBreak: "5 minutes" },
+  { round: 4, sb: 100, bb: 200, ante: 50, totalHands: 150, handsPerStage: 50, reentry: t('GENERAL_NO'), stageBreak: "1 minute", roundBreak: "5 minutes" },
+  { round: 5, sb: 200, bb: 400, ante: 100, totalHands: 120, handsPerStage: 40, reentry: t('GENERAL_NO'), stageBreak: "1 minute", roundBreak: "5 minutes" },
+  { round: 6, sb: 400, bb: 800, ante: 200, totalHands: 90, handsPerStage: 30, reentry: t('GENERAL_NO'), stageBreak: "1 minute", roundBreak: "5 minutes" }
 ];
 
 const finalTableStages = [
