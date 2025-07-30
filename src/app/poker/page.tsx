@@ -21,8 +21,36 @@ import { sendTelegramMessage, formatButtonClickMessage } from "@/lib/telegram";
 import EmailModal from "@/components/ui/EmailModal";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
-function WinnerCandlestickChartAllStages() {
+const PokerPage = () => {
+  const { t } = useTranslation();
+  const [copied, setCopied] = useState(false);
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
+  const [emailContext, setEmailContext] = useState<string | undefined>(undefined);
+  const navigate = useNavigate();
+
+  const handleButtonClick = async (buttonText: string) => {
+    const message = formatButtonClickMessage(buttonText, navigator.userAgent);
+    await sendTelegramMessage(message);
+  };
+
+  const handleEmailModal = (context: string) => {
+    setEmailContext(context);
+    setEmailModalOpen(true);
+  };
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(pythonCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy code:', err);
+    }
+  };
+
+  function WinnerCandlestickChartAllStages() {
   // Данные этапов всех раундов
   const rounds = [
     { round: 1, sb: 10, bb: 20, ante: 5, handsPerStage: 80 },
@@ -113,7 +141,7 @@ function WinnerCandlestickChartAllStages() {
     <div className="flex flex-row items-center justify-center min-w-[900px] bg-[#181a20] rounded-xl p-6 gap-8 w-full">
       {/* Блок увеличенной свечи (легенда) */}
       <div className="flex flex-col items-center basis-1/5 max-w-[400px] bg-[#23262f] rounded-lg p-4 shadow-md min-w-[200px] min-h-[320px] justify-center">
-        <div className="mb-2 text-xs text-[#b7bdc6] font-semibold">Что означает свеча?</div>
+        <div className="mb-2 text-xs text-[#b7bdc6] font-semibold">{t('POKER_CANDLE_MEANING')}</div>
         <div className="w-full flex items-center justify-center">
           <svg width="180" height="200" viewBox="0 0 180 200">
             {/* Зелёная свеча (рост) */}
@@ -132,7 +160,7 @@ function WinnerCandlestickChartAllStages() {
             <text x="70" y="135" fontSize="12" fill="#b7bdc6">Close</text>
             <text x="70" y="45" fontSize="12" fill="#b7bdc6">High</text>
             <text x="70" y="165" fontSize="12" fill="#b7bdc6">Low</text>
-            <text x="35" y="190" fontSize="12" fill="#0ecb81">Рост</text>
+            <text x="35" y="190" fontSize="12" fill="#0ecb81">{t('POKER_GROWTH')}</text>
 
             {/* Красная свеча (снижение) */}
             {/* Фитиль */}
@@ -150,13 +178,13 @@ function WinnerCandlestickChartAllStages() {
             <text x="150" y="145" fontSize="12" fill="#b7bdc6">Close</text>
             <text x="150" y="45" fontSize="12" fill="#b7bdc6">High</text>
             <text x="150" y="165" fontSize="12" fill="#b7bdc6">Low</text>
-            <text x="115" y="190" fontSize="12" fill="#f6465d">Снижение</text>
+            <text x="115" y="190" fontSize="12" fill="#f6465d">{t('POKER_DECLINE')}</text>
           </svg>
         </div>
         <div className="mt-4 text-xs text-[#b7bdc6] w-full space-y-1">
-          <div><span className="font-bold text-white">Open</span> — средний стэк игрока в начале блока из 30 раздач</div>
-          <div><span className="font-bold text-white">Close</span> — средний стэк в конце блока из 30 раздач</div>
-          <div><span className="font-bold text-white">High/Low</span> — максимальный/минимальный стэк в блоке из 30 раздач</div>
+          <div><span className="font-bold text-white">Open</span> — {t('POKER_OPEN_DESC')}</div>
+          <div><span className="font-bold text-white">Close</span> — {t('POKER_CLOSE_DESC')}</div>
+          <div><span className="font-bold text-white">High/Low</span> — {t('POKER_HIGH_LOW_DESC')}</div>
         </div>
       </div>
       {/* График */}
@@ -181,7 +209,7 @@ function WinnerCandlestickChartAllStages() {
                 {Math.round(yMax - i*yStep)/1000}k
               </text>
             ))}
-            <text x="20" y="25">Стек</text>
+            <text x="20" y="25">{t('POKER_STACK')}</text>
           </g>
           {/* Ось X и подписи этапов (реже) */}
           <g fontSize="13" fill="#b7bdc6">
@@ -229,18 +257,18 @@ function WinnerCandlestickChartAllStages() {
 }
 
 const tournamentRounds = [
-  { round: 1, sb: 10, bb: 20, ante: 5, totalHands: 240, handsPerStage: 80, reentry: "Да", stageBreak: "1 мин", roundBreak: "5 мин" },
-  { round: 2, sb: 20, bb: 40, ante: 10, totalHands: 210, handsPerStage: 70, reentry: "Да", stageBreak: "1 мин", roundBreak: "5 мин" },
-  { round: 3, sb: 50, bb: 100, ante: 25, totalHands: 180, handsPerStage: 60, reentry: "Да", stageBreak: "1 мин", roundBreak: "5 мин" },
-  { round: 4, sb: 100, bb: 200, ante: 50, totalHands: 150, handsPerStage: 50, reentry: "Нет", stageBreak: "1 мин", roundBreak: "5 мин" },
-  { round: 5, sb: 200, bb: 400, ante: 100, totalHands: 120, handsPerStage: 40, reentry: "Нет", stageBreak: "1 мин", roundBreak: "5 мин" },
-  { round: 6, sb: 400, bb: 800, ante: 200, totalHands: 90, handsPerStage: 30, reentry: "Нет", stageBreak: "1 мин", roundBreak: "5 мин" }
+  { round: 1, sb: 10, bb: 20, ante: 5, totalHands: 240, handsPerStage: 80, reentry: t('GENERAL_YES'), stageBreak: "1 мин", roundBreak: "5 мин" },
+  { round: 2, sb: 20, bb: 40, ante: 10, totalHands: 210, handsPerStage: 70, reentry: t('GENERAL_YES'), stageBreak: "1 мин", roundBreak: "5 мин" },
+  { round: 3, sb: 50, bb: 100, ante: 25, totalHands: 180, handsPerStage: 60, reentry: t('GENERAL_YES'), stageBreak: "1 мин", roundBreak: "5 мин" },
+  { round: 4, sb: 100, bb: 200, ante: 50, totalHands: 150, handsPerStage: 50, reentry: t('GENERAL_NO'), stageBreak: "1 мин", roundBreak: "5 мин" },
+  { round: 5, sb: 200, bb: 400, ante: 100, totalHands: 120, handsPerStage: 40, reentry: t('GENERAL_NO'), stageBreak: "1 мин", roundBreak: "5 мин" },
+  { round: 6, sb: 400, bb: 800, ante: 200, totalHands: 90, handsPerStage: 30, reentry: t('GENERAL_NO'), stageBreak: "1 мин", roundBreak: "5 мин" }
 ];
 
 const finalTableStages = [
-  { stage: "1 (начальный)", hands: "1–20", sb: 800, bb: 1600, ante: 200 },
-  { stage: "2 (средний)", hands: "21–40", sb: 1600, bb: 3200, ante: 400 },
-  { stage: "3 (кульминационный)", hands: "41–60", sb: 3200, bb: 6400, ante: 800 }
+  { stage: "1", hands: "1–20", sb: 800, bb: 1600, ante: 200 },
+  { stage: "2", hands: "21–40", sb: 1600, bb: 3200, ante: 400 },
+  { stage: "3", hands: "41–60", sb: 3200, bb: 6400, ante: 800 }
 ];
 
 const pythonCode = `import requests
@@ -256,7 +284,6 @@ class AIArenaPokerAPI:
         }
     
     def join_tournament(self, ai_name, strategy_params=None):
-        """Подключение ИИ к турниру"""
         payload = {
             "ai_name": ai_name,
             "strategy_params": strategy_params or {}
@@ -269,7 +296,6 @@ class AIArenaPokerAPI:
         return response.json()
     
     def make_action(self, session_id, action, amount=None):
-        """Выполнение игрового действия"""
         payload = {
             "session_id": session_id,
             "action": action,  # "fold", "call", "raise", "check"
@@ -283,17 +309,14 @@ class AIArenaPokerAPI:
         return response.json()
     
     def get_game_state(self, session_id):
-        """Получение текущего состояния игры"""
         response = requests.get(
             f"{self.base_url}/poker/game-state/{session_id}",
             headers=self.headers
         )
         return response.json()
 
-# Пример использования
 api = AIArenaPokerAPI("your_api_key_here")
 
-# Присоединение к турниру
 result = api.join_tournament(
     ai_name="MyPokerBot",
     strategy_params={
@@ -302,35 +325,7 @@ result = api.join_tournament(
         "risk_tolerance": 0.6
     }
 )
-
-print(f"Подключение к турниру: {result}")
 `;
-
-const PokerPage = () => {
-  const [copied, setCopied] = useState(false);
-  const [emailModalOpen, setEmailModalOpen] = useState(false);
-  const [emailContext, setEmailContext] = useState<string | undefined>(undefined);
-  const navigate = useNavigate();
-
-  const handleButtonClick = async (buttonText: string) => {
-    const message = formatButtonClickMessage(buttonText, navigator.userAgent);
-    await sendTelegramMessage(message);
-  };
-
-  const handleEmailModal = (context: string) => {
-    setEmailContext(context);
-    setEmailModalOpen(true);
-  };
-
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(pythonCode);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy code:', err);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-background">
@@ -342,37 +337,28 @@ const PokerPage = () => {
           <div className="text-center space-y-6 max-w-4xl mx-auto">
             <Badge variant="outline" className="border-primary/30 text-primary">
               <Spade className="w-4 h-4 mr-2" />
-              Texas Hold'em AI Arena
+              {t('POKER_TITLE')}
             </Badge>
             
             <h1 className="text-4xl md:text-6xl font-bold">
               <span className="bg-gradient-cyber bg-clip-text text-transparent">
-                Покер
-              </span>{" "}
-              <span className="text-foreground">для ИИ</span>
+                {t('POKER_POKER')}
+              </span>{' '}
+              <span className="text-foreground">{t('POKER_FOR_AI')}</span>
             </h1>
             
             <p className="text-xl text-muted-foreground">
-              Соревнования нейронных сетей в классическом Texas Hold'em. 
-              Продвинутая турнирная структура с возможностью настройки гиперпараметров.
+              {t('POKER_DESC')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                variant="cyber" 
-                size="lg"
-                onClick={() => handleEmailModal("Участвовать в турнире")}
-              >
+              <Button variant="cyber" size="lg" className="w-full sm:w-auto" onClick={() => handleEmailModal(t('POKER_JOIN_TOURNAMENT'))}>
                 <Trophy className="w-5 h-5 mr-2" />
-                Участвовать в турнире
+                {t('POKER_JOIN_TOURNAMENT')}
               </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                onClick={() => navigate("/docs")}
-              >
+              <Button variant="outline" size="lg" className="w-full sm:w-auto" onClick={() => navigate('/docs')}>
                 <Target className="w-5 h-5 mr-2" />
-                API документация
+                {t('POKER_API_DOCS')}
               </Button>
             </div>
           </div>
@@ -386,23 +372,23 @@ const PokerPage = () => {
             {[
               {
                 icon: Users,
-                title: "Мультиплеер ИИ",
-                description: "До 8 нейронных сетей за одним столом"
+                title: t('POKER_MULTIPLAYER_AI'),
+                description: t('POKER_MULTIPLAYER_DESC')
               },
               {
                 icon: Clock,
-                title: "Быстрые раунды",
-                description: "Сотни раздач за минуты с мгновенной обратной связью"
+                title: t('POKER_FAST_ROUNDS'),
+                description: t('POKER_FAST_ROUNDS_DESC')
               },
               {
                 icon: Settings,
-                title: "Настройка ИИ",
-                description: "Возможность корректировки параметров между этапами"
+                title: t('POKER_AI_SETTINGS'),
+                description: t('POKER_AI_SETTINGS_DESC')
               },
               {
                 icon: Zap,
-                title: "Реальное время",
-                description: "Мгновенные результаты и детальная статистика"
+                title: t('POKER_REAL_TIME'),
+                description: t('POKER_REAL_TIME_DESC')
               }
             ].map((feature, index) => {
               const Icon = feature.icon;
@@ -429,7 +415,7 @@ const PokerPage = () => {
         <div className="container mx-auto px-4">
           <div className="bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 rounded-2xl p-8 md:p-12 shadow-lg flex flex-col gap-8">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-              Свечной график финалиста FinalistAI
+              {t('POKER_CANDLESTICK_CHART_TITLE')}
             </h2>
             <div className="w-full overflow-x-auto">
               <WinnerCandlestickChartAllStages />
@@ -442,7 +428,7 @@ const PokerPage = () => {
               <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path d="M8 5l8 7-8 7" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span className="ml-1 text-xl text-muted-foreground whitespace-nowrap">Пролистайте</span>
+              <span className="ml-1 text-xl text-muted-foreground whitespace-nowrap">{t('POKER_SCROLL_DOWN')}</span>
             </div>
           </div>
         </div>
@@ -450,16 +436,16 @@ const PokerPage = () => {
             {/* Лента ходов */}
             <div className="mt-8">
               <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-              Лента ходов
+              {t('POKER_MOVE_HISTORY')}
             </h2>
               <div className="bg-background rounded-lg p-4 border border-accent/30 overflow-x-auto relative">
                 <table className="min-w-[400px] w-full text-sm">
                   <thead>
                     <tr className="text-muted-foreground">
-                      <th className="py-2 px-3 text-left">Время</th>
-                      <th className="py-2 px-3 text-left">Агент</th>
-                      <th className="py-2 px-3 text-left">Действие</th>
-                      <th className="py-2 px-3 text-left">Ставка</th>
+                      <th className="py-2 px-3 text-left">{t('POKER_TIME')}</th>
+                      <th className="py-2 px-3 text-left">{t('POKER_AGENT')}</th>
+                      <th className="py-2 px-3 text-left">{t('POKER_ACTION')}</th>
+                      <th className="py-2 px-3 text-left">{t('POKER_BET')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -494,7 +480,7 @@ const PokerPage = () => {
                         <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
                           <path d="M8 5l8 7-8 7" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                        <span className="ml-1 text-xl text-muted-foreground whitespace-nowrap">Пролистайте</span>
+                        <span className="ml-1 text-xl text-muted-foreground whitespace-nowrap">{t('SCROLL_DOWN', 'Пролистайте')}</span>
                       </div>
                     </div>
                   </div>
@@ -511,11 +497,10 @@ const PokerPage = () => {
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-12">
             <h2 className="text-3xl md:text-4xl font-bold">
-              Структура <span className="bg-gradient-neural bg-clip-text text-transparent">турнира</span>
+              {t('POKER_TOURNAMENT_STRUCTURE')} <span className="bg-gradient-neural bg-clip-text text-transparent">{t('POKER_TOURNAMENT')}</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Турнир состоит из 6 раундов с прогрессивным увеличением блайндов. 
-              Начальный стек: <span className="font-bold text-primary">10,000</span> фишек.
+              {t('POKER_TOURNAMENT_DESC')}
             </p>
           </div>
 
@@ -525,12 +510,12 @@ const PokerPage = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <RefreshCw className="w-5 h-5 text-primary" />
-                  Re-entry
+                  {t('POKER_RE_ENTRY')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm sm:text-base">
-                  Доступен <span className="font-bold text-primary">1 перезаход</span> в игру до 4 раунда включительно
+                  {t('POKER_RE_ENTRY_DESC')}
                 </p>
               </CardContent>
             </Card>
@@ -539,13 +524,13 @@ const PokerPage = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Clock className="w-5 h-5 text-secondary" />
-                  Перерывы
+                  {t('POKER_BREAKS')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm sm:text-base">
-                  <span className="font-bold text-secondary">1 минута</span> между этапами для настройки ИИ<br/>
-                  <span className="font-bold text-secondary">5 минут</span> между раундами
+                  <span className="font-bold text-secondary">{t('POKER_STAGE_BREAK')}</span> {t('POKER_BETWEEN_STAGES')} {t('POKER_FOR_AI_SETTINGS')}<br/>
+                  <span className="font-bold text-secondary">{t('POKER_ROUND_BREAK')}</span> {t('POKER_BETWEEN_ROUNDS')}
                 </p>
               </CardContent>
             </Card>
@@ -554,12 +539,12 @@ const PokerPage = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Settings className="w-5 h-5 text-accent" />
-                  Настройки
+                  {t('POKER_SETTINGS')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm sm:text-base">
-                  Возможность корректировки <span className="font-bold text-accent">гиперпараметров</span> между этапами
+                  {t('POKER_ADJUST_PARAMS')}
                 </p>
               </CardContent>
             </Card>
@@ -568,9 +553,9 @@ const PokerPage = () => {
           {/* Tournament Rounds Table */}
           <Card className="mb-12">
             <CardHeader>
-              <CardTitle>Структура раундов</CardTitle>
+              <CardTitle>{t('ROUND_STRUCTURE', 'Структура раундов')}</CardTitle>
               <CardDescription>
-                Каждый раунд разделен на 3 этапа с равным количеством раздач
+                {t('EACH_ROUND_DIVIDED', 'Каждый раунд разделен на 3 этапа с равным количеством раздач')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -578,14 +563,14 @@ const PokerPage = () => {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="min-w-[80px]">Раунд</TableHead>
-                      <TableHead className="min-w-[100px]">SB / BB</TableHead>
-                      <TableHead className="min-w-[80px]">Анте</TableHead>
-                      <TableHead className="min-w-[120px]">Всего раздач</TableHead>
-                      <TableHead className="min-w-[150px]">Раздач в этапах (×3)</TableHead>
-                      <TableHead className="min-w-[100px]">Re-entry</TableHead>
-                      <TableHead className="min-w-[150px]">Перерыв перед этапами</TableHead>
-                      <TableHead className="min-w-[180px]">Перерыв между раундами</TableHead>
+                      <TableHead className="min-w-[80px]">{t('ROUND', 'Раунд')}</TableHead>
+                      <TableHead className="min-w-[100px]">{t('SB_BB', 'SB / BB')}</TableHead>
+                      <TableHead className="min-w-[80px]">{t('ANTE', 'Анте')}</TableHead>
+                      <TableHead className="min-w-[120px]">{t('TOTAL_HANDS', 'Всего раздач')}</TableHead>
+                      <TableHead className="min-w-[150px]">{t('HANDS_PER_STAGE', 'Раздач в этапах (×3)')}</TableHead>
+                      <TableHead className="min-w-[100px]">{t('RE_ENTRY', 'Re-entry')}</TableHead>
+                      <TableHead className="min-w-[150px]">{t('BREAK_BEFORE_STAGE', 'Перерыв перед этапами')}</TableHead>
+                      <TableHead className="min-w-[180px]">{t('BREAK_BETWEEN_ROUNDS', 'Перерыв между раундами')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -597,7 +582,7 @@ const PokerPage = () => {
                         <TableCell>{round.totalHands}</TableCell>
                         <TableCell>3 × {round.handsPerStage}</TableCell>
                         <TableCell>
-                          <Badge variant={round.reentry === "Да" ? "default" : "secondary"}>
+                          <Badge variant={round.reentry === t('GENERAL_YES') ? "default" : "secondary"}>
                             {round.reentry}
                           </Badge>
                         </TableCell>
@@ -614,7 +599,7 @@ const PokerPage = () => {
                         <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
                           <path d="M8 5l8 7-8 7" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                        <span className="ml-1 text-xl text-muted-foreground whitespace-nowrap">Пролистайте</span>
+                        <span className="ml-1 text-xl text-muted-foreground whitespace-nowrap">{t('POKER_SCROLL_DOWN')}</span>
                       </div>
                     </div>
                   </div>
@@ -628,10 +613,10 @@ const PokerPage = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Trophy className="w-5 h-5 text-primary" />
-                Структура финального стола
+                {t('FINAL_TABLE_STRUCTURE', 'Структура финального стола')}
               </CardTitle>
               <CardDescription>
-                Финальный этап турнира с увеличенными ставками
+                {t('FINAL_STAGE_DESC', 'Финальный этап турнира с увеличенными ставками')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -639,10 +624,10 @@ const PokerPage = () => {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Этап</TableHead>
-                      <TableHead>Раздачи</TableHead>
-                      <TableHead>SB / BB</TableHead>
-                      <TableHead>Анте</TableHead>
+                      <TableHead>{t('STAGE', 'Этап')}</TableHead>
+                      <TableHead>{t('HANDS', 'Раздачи')}</TableHead>
+                      <TableHead>{t('SB_BB', 'SB / BB')}</TableHead>
+                      <TableHead>{t('ANTE', 'Анте')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -663,7 +648,7 @@ const PokerPage = () => {
                         <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
                           <path d="M8 5l8 7-8 7" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                        <span className="ml-1 text-xl text-muted-foreground whitespace-nowrap">Пролистайте</span>
+                        <span className="ml-1 text-xl text-muted-foreground whitespace-nowrap">{t('POKER_SCROLL_DOWN')}</span>
                       </div>
                     </div>
                   </div>
@@ -679,19 +664,19 @@ const PokerPage = () => {
         <div className="container mx-auto px-4">
           <div className="text-center space-y-6 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-2xl p-8 md:p-12">
             <h2 className="text-3xl md:text-4xl font-bold">
-              Готовы принять вызов?
+              {t('POKER_READY_FOR_CHALLENGE')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Подключите свою нейронную сеть к платформе и испытайте её в настоящих покерных баталиях
+              {t('CONNECT_NEURAL_NETWORK', 'Подключите свою нейронную сеть к платформе и испытайте её в настоящих покерных баталиях')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 variant="cyber" 
                 size="lg"
-                onClick={() => handleEmailModal("Начать играть")}
+                onClick={() => handleEmailModal(t('START_PLAYING', 'Начать играть'))}
               >
                 <Spade className="w-5 h-5 mr-2" />
-                Начать играть
+                {t('START_PLAYING', 'Начать играть')}
               </Button>
             </div>
           </div>
@@ -704,18 +689,18 @@ const PokerPage = () => {
           <div className="text-center space-y-4 mb-12">
             <Badge variant="outline" className="border-primary/30 text-primary">
               <Code className="w-4 h-4 mr-2" />
-              Python API Integration
+              {t('PYTHON_API_INTEGRATION', 'Python API Integration')}
             </Badge>
             
             <h2 className="text-3xl md:text-4xl font-bold">
-              Интеграция с{" "}
+              {t('INTEGRATION_WITH', 'Интеграция с')}{" "}
               <span className="bg-gradient-neural bg-clip-text text-transparent">
-                платформой
+                {t('PLATFORM', 'платформой')}
               </span>
             </h2>
             
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Простое подключение вашего ИИ к покерной платформе через Python SDK
+              {t('SIMPLE_CONNECTION', 'Простое подключение вашего ИИ к покерной платформе через Python SDK')}
             </p>
           </div>
 
@@ -725,10 +710,10 @@ const PokerPage = () => {
                 <div>
                   <CardTitle className="flex items-center gap-2">
                     <Code className="w-5 h-5 text-primary" />
-                    Python SDK Example
+                    {t('PYTHON_SDK_EXAMPLE', 'Python SDK Example')}
                   </CardTitle>
                   <CardDescription>
-                    Полный пример подключения ИИ к покерному турниру
+                    {t('FULL_EXAMPLE', 'Полный пример подключения ИИ к покерному турниру')}
                   </CardDescription>
                 </div>
                 <Button
@@ -738,7 +723,7 @@ const PokerPage = () => {
                   className="h-8 px-2"
                 >
                   <Copy className="w-4 h-4" />
-                  {copied ? 'Скопировано!' : 'Копировать'}
+                  {copied ? t('COPIED', 'Скопировано!') : t('COPY', 'Копировать')}
                 </Button>
               </CardHeader>
               <CardContent>

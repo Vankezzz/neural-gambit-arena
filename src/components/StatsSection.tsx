@@ -10,71 +10,76 @@ import {
   Activity,
   Zap
 } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
-const stats = [
-  {
-    icon: Users,
-    value: "42",
-    label: "Активных ИИ",
-    trend: "+12 за неделю",
-    color: "primary"
-  },
-  {
-    icon: Gamepad2,
-    value: "1,247,392",
-    label: "Раздач сыграно",
-    trend: "+15,234 сегодня",
-    color: "secondary"
-  },
-  {
-    icon: DollarSign,
-    value: "₽2,847,192",
-    label: "Игровая валюта",
-    trend: "В обороте",
-    color: "accent"
-  },
-  {
-    icon: Clock,
-    value: "0.3s",
-    label: "Среднее время хода",
-    trend: "Ультрабыстро",
-    color: "primary"
-  },
-  {
-    icon: Award,
-    value: "127",
-    label: "Завершенных сессий",
-    trend: "+8 сегодня",
-    color: "secondary"
-  },
-  {
-    icon: Activity,
-    value: "98.7%",
-    label: "Uptime платформы",
-    trend: "Стабильность",
-    color: "accent"
-  }
-];
+
 
 const StatsSection = () => {
+  const { t } = useTranslation();
+
+  const stats = [
+    {
+      icon: Users,
+      value: "42",
+      label: t('LENDING_ACTIVE_AI'),
+      trend: t('LENDING_PLUS_12_PER_WEEK'),
+      color: "primary"
+    },
+    {
+      icon: Gamepad2,
+      value: "1,247,392",
+      label: t('LENDING_HANDS_PLAYED'),
+      trend: t('LENDING_PLUS_15234_TODAY'),
+      color: "secondary"
+    },
+    {
+      icon: DollarSign,
+      value: "₽2,847,192",
+      label: t('LENDING_GAME_CURRENCY'),
+      trend: t('LENDING_IN_CIRCULATION'),
+      color: "accent"
+    },
+    {
+      icon: Clock,
+      value: "0.3s",
+      label: t('LENDING_AVERAGE_MOVE_TIME'),
+      trend: t('LENDING_ULTRA_FAST'),
+      color: "primary"
+    },
+    {
+      icon: Award,
+      value: "127",
+      label: t('LENDING_COMPLETED_SESSIONS'),
+      trend: t('LENDING_PLUS_8_TODAY'),
+      color: "secondary"
+    },
+    {
+      icon: Activity,
+      value: "98.7%",
+      label: t('LENDING_PLATFORM_UPTIME'),
+      trend: t('LENDING_STABILITY'),
+      color: "accent"
+    }
+  ];
+
   return (
     <section className="py-24 bg-muted/20">
       <div className="container mx-auto px-4">
         <div className="text-center space-y-4 mb-16">
           <Badge variant="outline" className="border-primary/30 text-primary">
             <TrendingUp className="w-4 h-4 mr-2" />
-            Статистика в реальном времени
+            {t('LENDING_REAL_TIME_STATS')}
           </Badge>
           
           <h2 className="text-3xl md:text-4xl font-bold">
-            Платформа в{" "}
+            {t('LENDING_PLATFORM_IN')}{" "}
             <span className="bg-gradient-cyber bg-clip-text text-transparent">
-              цифрах
+              {t('LENDING_NUMBERS')}
             </span>
           </h2>
           
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Данные обновляются каждую секунду, показывая реальную активность ИИ-игроков
+            {t('LENDING_DATA_UPDATES_DESC')}
           </p>
         </div>
 
@@ -99,7 +104,7 @@ const StatsSection = () => {
                       className={`border-${stat.color}/30 text-${stat.color} text-xs`}
                     >
                       <Zap className="w-3 h-3 mr-1" />
-                      Live
+                      {t('LENDING_LIVE')}
                     </Badge>
                   </div>
                   

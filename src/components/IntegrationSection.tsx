@@ -13,42 +13,12 @@ import { sendTelegramMessage, formatButtonClickMessage } from "@/lib/telegram";
 import EmailModal from "@/components/ui/EmailModal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const integrationFeatures = [
-  {
-    icon: Code,
-    title: "RESTful API",
-    description: "Простой HTTP API с подробной документацией",
-    color: "primary"
-  },
-  {
-    icon: Zap,
-    title: "Мгновенный отклик",
-    description: "Латентность менее 50мс для реального времени",
-    color: "secondary"
-  },
-  {
-    icon: Shield,
-    title: "Безопасность",
-    description: "Токен-аутентификация и шифрование данных",
-    color: "accent"
-  },
-  {
-    icon: Settings,
-    title: "Гибкость",
-    description: "Настройка параметров ИИ между сессиями",
-    color: "primary"
-  }
-];
+import { useTranslation } from 'react-i18next';
 
-const integrationSteps = [
-  "Получите API ключ через регистрацию",
-  "Установите Python SDK или используйте REST API",
-  "Подключите вашу нейронную сеть к турниру",
-  "Начните получать результаты и статистику"
-];
 
 const IntegrationSection = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const handleButtonClick = async (buttonText: string) => {
     const message = formatButtonClickMessage(buttonText, navigator.userAgent);
     await sendTelegramMessage(message);
@@ -60,25 +30,58 @@ const IntegrationSection = () => {
     setEmailContext(context);
     setEmailModalOpen(true);
   };
+
+  const integrationFeatures = [
+    {
+      icon: Code,
+      title: t('LENDING_RESTFUL_API'),
+      description: t('LENDING_SIMPLE_HTTP_API_DESC'),
+      color: "primary"
+    },
+    {
+      icon: Zap,
+      title: t('LENDING_INSTANT_RESPONSE'),
+      description: t('LENDING_LATENCY_LESS_50MS'),
+      color: "secondary"
+    },
+    {
+      icon: Shield,
+      title: t('LENDING_SECURITY'),
+      description: t('LENDING_TOKEN_AUTH_ENCRYPTION'),
+      color: "accent"
+    },
+    {
+      icon: Settings,
+      title: t('LENDING_FLEXIBILITY'),
+      description: t('LENDING_AI_PARAMS_BETWEEN_SESSIONS'),
+      color: "primary"
+    }
+  ];
+
+  const integrationSteps = [
+    t('LENDING_GET_API_KEY_REGISTRATION'),
+    t('LENDING_INSTALL_PYTHON_SDK_REST_API'),
+    t('LENDING_CONNECT_NEURAL_NETWORK_TOURNAMENT'),
+    t('LENDING_START_GETTING_RESULTS_STATS')
+  ];
   return (
     <section className="py-24 bg-gradient-to-b from-muted/30 to-background">
       <div className="container mx-auto px-4">
         <div className="text-center space-y-4 mb-16">
           <Badge variant="outline" className="border-primary/30 text-primary">
             <Code className="w-4 h-4 mr-2" />
-            Простая интеграция
+            {t('LENDING_SIMPLE_INTEGRATION')}
           </Badge>
           
           <h2 className="text-3xl md:text-4xl font-bold">
-            Подключение за{" "}
+            {t('LENDING_CONNECTION_IN')}{" "}
             <span className="bg-gradient-neural bg-clip-text text-transparent">
-              5 минут
+              {t('LENDING_5_MINUTES')}
             </span>
           </h2>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Интуитивный API с подробной документацией позволяет подключить любую 
-            нейронную сеть к покерной платформе без сложных настроек
+            {t('LENDING_INTUITIVE_API_DESC')}
           </p>
         </div>
 
@@ -118,9 +121,9 @@ const IntegrationSection = () => {
         <div className="max-w-4xl mx-auto">
           <Card className="bg-card/50 backdrop-blur-sm border-border/50">
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl">Быстрый старт</CardTitle>
+              <CardTitle className="text-2xl">{t('LENDING_QUICK_START')}</CardTitle>
               <CardDescription>
-                Четыре простых шага для подключения вашего ИИ к платформе
+                {t('LENDING_FOUR_SIMPLE_STEPS')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -142,7 +145,7 @@ const IntegrationSection = () => {
 
               <div className="mt-8 text-center space-y-4">
                 <p className="text-muted-foreground">
-                  Поддерживаются популярные языки программирования и фреймворки машинного обучения
+                  {t('LENDING_SUPPORTED_LANGUAGES_FRAMEWORKS')}
                 </p>
                 <div className="flex flex-wrap justify-center gap-2">
                   {["Python", "TensorFlow", "PyTorch", "scikit-learn", "REST API"].map((tech) => (
@@ -155,17 +158,17 @@ const IntegrationSection = () => {
                   <Button 
                     variant="cyber" 
                     size="lg"
-                    onClick={() => handleEmailModal("Получить API ключ")}
+                    onClick={() => handleEmailModal(t('LENDING_GET_API_KEY'))}
                   >
                     <Code className="w-5 h-5 mr-2" />
-                    Получить API ключ
+                    {t('LENDING_GET_API_KEY')}
                   </Button>
                   <Button 
                     variant="outline" 
                     size="lg"
                     onClick={() => navigate("/docs")}
                   >
-                    Документация API
+                    {t('LENDING_API_DOCUMENTATION')}
                   </Button>
                 </div>
               </div>

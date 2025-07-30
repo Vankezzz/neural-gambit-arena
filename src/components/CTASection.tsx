@@ -15,8 +15,10 @@ import {
 import { sendTelegramMessage, formatButtonClickMessage } from "@/lib/telegram";
 import EmailModal from "./ui/EmailModal";
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 
 const CTASection = () => {
+  const { t } = useTranslation();
   const [emailModalOpen, setEmailModalOpen] = useState(false);
   const [emailContext, setEmailContext] = useState<string | undefined>(undefined);
 
@@ -45,19 +47,18 @@ const CTASection = () => {
           <div className="space-y-6">
             <Badge variant="outline" className="border-primary/30 text-primary">
               <Rocket className="w-4 h-4 mr-2" />
-              Присоединяйтесь к будущему ИИ
+              {t('LENDING_JOIN_AI_FUTURE')}
             </Badge>
             
             <h2 className="text-4xl md:text-5xl font-bold">
-              Готовы создать{" "}
+              {t('LENDING_READY_TO_CREATE')}{" "}
               <span className="bg-gradient-cyber bg-clip-text text-transparent">
-                непобедимого ИИ?
+                {t('LENDING_UNBEATABLE_AI')}
               </span>
             </h2>
             
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Присоединяйтесь к сообществу разработчиков ИИ и покажите, на что способна 
-              ваша нейронная сеть в арене покера
+              {t('LENDING_JOIN_AI_COMMUNITY')}
             </p>
           </div>
 
@@ -71,9 +72,9 @@ const CTASection = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-bold">Доступ разработчика</h3>
+                  <h3 className="text-2xl font-bold">{t('LENDING_DEVELOPER_ACCESS')}</h3>
                   <p className="text-muted-foreground">
-                    Получите API ключ и начните тестировать своего ИИ уже сегодня
+                    {t('LENDING_GET_API_KEY_DESC')}
                   </p>
                 </div>
 
@@ -81,14 +82,14 @@ const CTASection = () => {
                   <div className="flex gap-2 items-center justify-center">
                     <Button 
                       variant="cyber"
-                      onClick={() => handleEmailModal("Получить доступ")}
+                      onClick={() => handleEmailModal(t('LENDING_GET_ACCESS'))}
                     >
-                      Получить доступ
+                      {t('LENDING_GET_ACCESS')}
                     </Button>
                   </div>
                   
                   <div className="text-xs text-muted-foreground">
-                    Бесплатная регистрация • Мгновенный доступ к API
+                    {t('LENDING_FREE_REGISTRATION')} • {t('LENDING_INSTANT_API_ACCESS')}
                   </div>
                 </div>
               </CardContent>
@@ -102,9 +103,9 @@ const CTASection = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-bold">Сообщество</h3>
+                  <h3 className="text-2xl font-bold">{t('LENDING_COMMUNITY')}</h3>
                   <p className="text-muted-foreground">
-                    Обсуждайте стратегии, делитесь опытом и учитесь у лучших
+                    {t('LENDING_DISCUSS_STRATEGIES')}
                   </p>
                 </div>
 
@@ -121,7 +122,7 @@ const CTASection = () => {
                   </div>
                   
                   <div className="text-xs text-muted-foreground">
-                    500+ активных разработчиков • Open Source
+                    {t('LENDING_ACTIVE_DEVELOPERS')} • {t('LENDING_OPEN_SOURCE')}
                   </div>
                 </div>
               </CardContent>
@@ -131,10 +132,10 @@ const CTASection = () => {
           {/* Features Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-12">
             {[
-              { icon: Bot, label: "42 ИИ", sublabel: "онлайн" },
-              { icon: Code, label: "< 50ms", sublabel: "API latency" },
-              { icon: Star, label: "99.9%", sublabel: "uptime" },
-              { icon: ArrowRight, label: "24/7", sublabel: "support" }
+              { icon: Bot, label: t('LENDING_AI_ONLINE'), sublabel: t('LENDING_ONLINE') },
+              { icon: Code, label: "< 50ms", sublabel: t('LENDING_API_LATENCY') },
+              { icon: Star, label: "99.9%", sublabel: t('LENDING_UPTIME') },
+              { icon: ArrowRight, label: "24/7", sublabel: t('LENDING_SUPPORT') }
             ].map((stat, index) => {
               const Icon = stat.icon;
               return (
@@ -152,18 +153,18 @@ const CTASection = () => {
           {/* Bottom CTA */}
           <div className="pt-8 border-t border-border/30">
             <p className="text-sm text-muted-foreground mb-4">
-              Платформа находится в стадии альфа-тестирования. 
-              <br />Ранние участники получают приоритетный доступ к новым функциям.
+              {t('LENDING_ALPHA_TESTING')}
+              <br />{t('LENDING_EARLY_ACCESS')}
             </p>
             
             <Button 
               variant="neural" 
               size="lg" 
               className="group"
-              onClick={() => handleEmailModal("Уведомить о запуске")}
+              onClick={() => handleEmailModal(t('LENDING_NOTIFY_ON_LAUNCH'))}
             >
               <Mail className="w-5 h-5 mr-2" />
-              Уведомить о запуске
+              {t('LENDING_NOTIFY_ON_LAUNCH')}
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </div>

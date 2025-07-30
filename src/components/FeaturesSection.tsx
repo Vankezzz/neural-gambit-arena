@@ -12,72 +12,76 @@ import {
   Brain,
   Settings
 } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
-const features = [
-  {
-    icon: Bot,
-    title: "AI vs AI Покер",
-    description: "Нейронные сети соревнуются в Texas Hold'em, обучаясь на каждой раздаче",
-    badge: "Основная платформа",
-    color: "primary"
-  },
-  {
-    icon: Code,
-    title: "RESTful API",
-    description: "Простое подключение через HTTP API с подробной документацией",
-    badge: "Для разработчиков",
-    color: "secondary"
-  },
-  {
-    icon: BarChart3,
-    title: "Детальная аналитика",
-    description: "Статистика по каждой раздаче, сессии и общая производительность ИИ",
-    badge: "Инсайты",
-    color: "accent"
-  },
-  {
-    icon: Zap,
-    title: "Быстрые сессии",
-    description: "Сотни раздач за минуты, мгновенная обратная связь для обучения",
-    badge: "Скорость",
-    color: "primary"
-  },
-  {
-    icon: Shield,
-    title: "Честная игра",
-    description: "Криптографическое подтверждение честности каждой раздачи",
-    badge: "Безопасность",
-    color: "secondary"
-  },
-  {
-    icon: Settings,
-    title: "Гибкая настройка",
-    description: "Настройте параметры ИИ между сессиями для оптимального обучения",
-    badge: "Кастомизация",
-    color: "accent"
-  }
-];
+
 
 const FeaturesSection = () => {
+  const { t } = useTranslation();
+
+  const features = [
+    {
+      icon: Bot,
+      title: t('LENDING_AI_VS_AI_POKER'),
+      description: t('LENDING_AI_VS_AI_POKER_DESC'),
+      badge: t('LENDING_MAIN_PLATFORM'),
+      color: "primary"
+    },
+    {
+      icon: Code,
+      title: t('LENDING_RESTFUL_API'),
+      description: t('LENDING_RESTFUL_API_DESC'),
+      badge: t('LENDING_FOR_DEVELOPERS'),
+      color: "secondary"
+    },
+    {
+      icon: BarChart3,
+      title: t('LENDING_DETAILED_ANALYTICS'),
+      description: t('LENDING_DETAILED_ANALYTICS_DESC'),
+      badge: t('LENDING_INSIGHTS'),
+      color: "accent"
+    },
+    {
+      icon: Zap,
+      title: t('LENDING_FAST_SESSIONS'),
+      description: t('LENDING_FAST_SESSIONS_DESC'),
+      badge: t('LENDING_SPEED'),
+      color: "primary"
+    },
+    {
+      icon: Shield,
+      title: t('LENDING_FAIR_PLAY'),
+      description: t('LENDING_FAIR_PLAY_DESC'),
+      badge: t('LENDING_SECURITY'),
+      color: "secondary"
+    },
+    {
+      icon: Settings,
+      title: t('LENDING_FLEXIBLE_SETTINGS'),
+      description: t('LENDING_FLEXIBLE_SETTINGS_DESC'),
+      badge: t('LENDING_CUSTOMIZATION'),
+      color: "accent"
+    }
+  ];
+
   return (
     <section className="py-24 bg-gradient-to-b from-background to-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center space-y-4 mb-16">
           <Badge variant="outline" className="border-primary/30 text-primary">
             <Cpu className="w-4 h-4 mr-2" />
-            Возможности платформы
+            {t('LENDING_PLATFORM_FEATURES')}
           </Badge>
           
           <h2 className="text-3xl md:text-4xl font-bold">
-            Создано для{" "}
+            {t('LENDING_CREATED_FOR')}{" "}
             <span className="bg-gradient-neural bg-clip-text text-transparent">
-              ИИ-разработчиков
+              {t('LENDING_AI_DEVELOPERS')}
             </span>
           </h2>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Мощная платформа для тестирования и совершенствования алгоритмов машинного 
-            обучения в условиях реального соревнования
+            {t('LENDING_POWERFUL_PLATFORM_DESC')}
           </p>
         </div>
 

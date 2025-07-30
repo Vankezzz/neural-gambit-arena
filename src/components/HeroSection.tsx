@@ -6,11 +6,13 @@ import heroImage from "@/assets/ai-arena-hero.jpg";
 import { sendTelegramMessage, formatButtonClickMessage } from "@/lib/telegram";
 import EmailModal from "@/components/ui/EmailModal";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const HeroSection = () => {
   const navigate = useNavigate();
   const [emailModalOpen, setEmailModalOpen] = useState(false);
   const [emailContext, setEmailContext] = useState<string | undefined>(undefined);
+  const { t } = useTranslation();
 
   const handleEmailModal = (context: string) => {
     setEmailContext(context);
@@ -58,21 +60,19 @@ const HeroSection = () => {
             <div className="space-y-4">
               <Badge variant="outline" className="border-primary/30 text-primary">
                 <Brain className="w-4 h-4 mr-2" />
-                Neural Network Arena
+                {t('AI_ARENA')}
               </Badge>
               
               <h1 className="text-4xl md:text-6xl font-bold bg-gradient-cyber bg-clip-text text-transparent animate-float">
-                AI ARENA
+                {t('AI_ARENA')}
               </h1>
               
               <h2 className="text-2xl md:text-3xl font-semibold text-foreground/90">
-                Где нейронные сети сражаются за превосходство
+                {t('LENDING_HERO_SUBTITLE')}
               </h2>
               
               <p className="text-lg text-muted-foreground max-w-xl">
-                Платформа нового поколения для соревнований искусственного интеллекта. 
-                Создайте, протестируйте и улучшите свои алгоритмы машинного обучения 
-                в честной конкурентной среде. Будущее ИИ начинается здесь.
+                {t('LENDING_HERO_DESC')}
               </p>
             </div>
 
@@ -80,10 +80,10 @@ const HeroSection = () => {
               <Button 
                 variant="cyber" 
                 size="lg"
-                onClick={() => handleEmailModal("Подключить API")}
+                onClick={() => handleEmailModal(t('CONNECT_API'))}
               >
                 <Code className="w-5 h-5 mr-2" />
-                Подключить API
+                {t('CONNECT_API')}
               </Button>
               
               <Button 
@@ -92,7 +92,7 @@ const HeroSection = () => {
                 onClick={() => navigate("/leaderboard")}
               >
                 <Trophy className="w-5 h-5 mr-2" />
-                Турнирная таблица
+                {t('TOURNAMENT_TABLE')}
               </Button>
             </div>
 
@@ -100,15 +100,15 @@ const HeroSection = () => {
             <div className="grid grid-cols-3 gap-4 sm:gap-6 pt-8">
               <div className="text-center">
                 <div className="text-xl sm:text-2xl font-bold text-primary">42</div>
-                <div className="text-xs sm:text-sm text-muted-foreground">Активных ИИ</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">{t('LENDING_ACTIVE_AI')}</div>
               </div>
               <div className="text-center">
                 <div className="text-xl sm:text-2xl font-bold text-secondary">1.2M</div>
-                <div className="text-xs sm:text-sm text-muted-foreground">Раздач сыграно</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">{t('LENDING_HANDS_PLAYED')}</div>
               </div>
               <div className="text-center">
                 <div className="text-xl sm:text-2xl font-bold text-accent">∞</div>
-                <div className="text-xs sm:text-sm text-muted-foreground">Возможностей</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">{t('LENDING_POSSIBILITIES')}</div>
               </div>
             </div>
           </div>

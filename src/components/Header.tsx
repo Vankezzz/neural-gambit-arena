@@ -11,8 +11,11 @@ import { Button } from "@/components/ui/button";
 import { Brain, Menu, X } from "lucide-react";
 import { sendTelegramMessage, formatButtonClickMessage } from "@/lib/telegram";
 import EmailModal from "./ui/EmailModal";
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Header = () => {
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [emailModalOpen, setEmailModalOpen] = useState(false);
   const [emailContext, setEmailContext] = useState<string | undefined>(undefined);
@@ -31,42 +34,43 @@ const Header = () => {
           <Link to="/" className="flex items-center space-x-2 group">
             <Brain className="w-8 h-8 text-primary group-hover:rotate-12 transition-transform" />
             <span className="text-xl font-bold bg-gradient-cyber bg-clip-text text-transparent">
-              AI ARENA
+              {t('AI_ARENA')}
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-          <Link 
+                      <Link 
               to="/poker" 
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Покер
+              {t('POKER', 'Покер')}
             </Link>
 
             <Link 
               to="/docs" 
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Документация
+              {t('DOCUMENTATION', 'Документация')}
             </Link>
             
             <Link 
               to="/leaderboard" 
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Рейтинг
+              {t('LEADERBOARD', 'Рейтинг')}
             </Link>
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* CTA Button and Language Switcher */}
+          <div className="hidden md:flex items-center gap-4">
+            <LanguageSwitcher />
             <Button 
               variant="cyber" 
               size="sm"
-              onClick={() => handleButtonClick("Подключиться")}
+              onClick={() => handleButtonClick(t('CONNECT', 'Подключиться'))}
             >
-              Подключиться
+              {t('CONNECT', 'Подключиться')}
             </Button>
           </div>
 
@@ -90,30 +94,32 @@ const Header = () => {
                 }}
                 className="text-left py-2 text-muted-foreground hover:text-foreground transition-colors"
               >
-                Покер
+                {t('POKER', 'Покер')}
               </button>
               <Link 
                 to="/docs" 
                 className="py-2 text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Документация
+                {t('DOCUMENTATION', 'Документация')}
               </Link>
               <Link 
                 to="/leaderboard" 
                 className="py-2 text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Рейтинг
+                {t('LEADERBOARD', 'Рейтинг')}
               </Link>
-              <Button 
-                variant="cyber" 
-                size="sm" 
-                className="mt-4"
-                onClick={() => handleButtonClick("Подключиться")}
-              >
-                Подключиться
-              </Button>
+              <div className="flex items-center gap-2 mt-4">
+                <LanguageSwitcher />
+                <Button 
+                  variant="cyber" 
+                  size="sm"
+                  onClick={() => handleButtonClick(t('CONNECT', 'Подключиться'))}
+                >
+                  {t('CONNECT', 'Подключиться')}
+                </Button>
+              </div>
             </div>
           </div>
         )}

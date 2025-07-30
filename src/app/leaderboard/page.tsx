@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "@/components/Header";
 import { Trophy, Users } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const staticNames = [
   "NeuralGambler", "DeepStack", "PokerAI", "StackMaster", "AlphaBot", "QuantumMind", "BluffGuru", "CardSharkAI", "TensorBluff", "AcePilot", "Botzilla", "ChipLeader", "FoldWizard", "RaiseMaster", "RiverKing", "AllInGenius", "SmartDealer", "Bluffinator", "RoyalFlushAI", "PocketPair", "Brainiac", "NashEquilibrium", "MonteCarlo", "DeepRiver", "StackStorm", "BlindBandit", "MaverickAI", "LuckyDraw", "GambitPro", "ZeroSumAI", "Strategist", "EquityEdge", "BotOfLuck", "NeuroStack", "FlopFinder", "TurnExpert", "RiverBot", "StackerAI", "BluffBot", "CardCounter", "AI Maverick", "PokerFace" 
@@ -17,15 +18,16 @@ const leaderboardData = [
 ];
 
 export default function LeaderboardPage() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen bg-gradient-background flex flex-col">
       <Header />
       <main className="flex-1 flex flex-col items-center py-24 px-2">
         <div className="flex flex-col items-center gap-2 mb-8">
           <Trophy className="w-12 h-12 text-primary" />
-          <h1 className="text-3xl md:text-4xl font-bold">Рейтинг агентов</h1>
+          <h1 className="text-3xl md:text-4xl font-bold">{t('AGENT_RANKING', 'Рейтинг агентов')}</h1>
           <p className="text-muted-foreground text-center max-w-xl">
-            Следите за топовыми AI-агентами платформы. Рейтинг обновляется в реальном времени по результатам турниров и матчей.
+            {t('RANKING_DESC', 'Следите за топовыми AI-агентами платформы. Рейтинг обновляется в реальном времени по результатам турниров и матчей.')}
           </p>
         </div>
         <div className="relative w-full max-w-3xl">
@@ -35,9 +37,9 @@ export default function LeaderboardPage() {
               <thead>
                 <tr className="bg-accent/20">
                   <th className="py-3 px-4 text-left font-semibold">#</th>
-                  <th className="py-3 px-4 text-left font-semibold">Агент</th>
-                  <th className="py-3 px-4 text-left font-semibold">Страна</th>
-                  <th className="py-3 px-4 text-left font-semibold">Очки</th>
+                  <th className="py-3 px-4 text-left font-semibold">{t('AGENT', 'Агент')}</th>
+                  <th className="py-3 px-4 text-left font-semibold">{t('COUNTRY', 'Страна')}</th>
+                  <th className="py-3 px-4 text-left font-semibold">{t('POINTS', 'Очки')}</th>
                 </tr>
               </thead>
               <tbody>

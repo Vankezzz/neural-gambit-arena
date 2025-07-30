@@ -5,6 +5,7 @@ import { Input } from "./input";
 import { Button } from "./button";
 import { sendTelegramMessage } from "@/lib/telegram";
 import { useForm } from "react-hook-form";
+import { useTranslation } from 'react-i18next';
 
 interface EmailModalProps {
   open: boolean;
@@ -17,6 +18,7 @@ type EmailFormValues = {
 };
 
 export const EmailModal: React.FC<EmailModalProps> = ({ open, onOpenChange, context }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const form = useForm<EmailFormValues>({
@@ -44,9 +46,9 @@ export const EmailModal: React.FC<EmailModalProps> = ({ open, onOpenChange, cont
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Введите ваш email</DialogTitle>
+          <DialogTitle>{t('ENTER_EMAIL', 'Введите ваш email')}</DialogTitle>
           <DialogDescription>
-            Мы отправим уведомление или доступ на вашу почту.
+            {t('EMAIL_DESCRIPTION', 'Мы отправим уведомление или доступ на вашу почту.')}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -55,17 +57,17 @@ export const EmailModal: React.FC<EmailModalProps> = ({ open, onOpenChange, cont
               control={form.control}
               name="email"
               rules={{
-                required: "Email обязателен",
+                required: t('EMAIL_REQUIRED', 'Email обязателен'),
                 pattern: {
                   value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                  message: "Введите корректный email",
+                  message: t('EMAIL_INVALID', 'Введите корректный email'),
                 },
               }}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('EMAIL', 'Email')}</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="your@email.com" {...field} disabled={loading || success} />
+                    <Input type="email" placeholder={t('EMAIL_PLACEHOLDER', 'your@email.com')} {...field} disabled={loading || success} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -73,11 +75,11 @@ export const EmailModal: React.FC<EmailModalProps> = ({ open, onOpenChange, cont
             />
             <DialogFooter>
               <Button type="submit" disabled={loading || success} className="w-full">
-                {loading ? "Отправка..." : success ? "Успешно!" : "Отправить"}
+                {loading ? t('SENDING', 'Отправка...') : success ? t('SUCCESS', 'Успешно!') : t('SEND', 'Отправить')}
               </Button>
               <DialogClose asChild>
                 <Button type="button" variant="ghost" className="w-full mt-2" disabled={loading}>
-                  Отмена
+                  {t('CANCEL', 'Отмена')}
                 </Button>
               </DialogClose>
             </DialogFooter>
