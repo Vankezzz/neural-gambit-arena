@@ -17,11 +17,23 @@ const LanguageSwitcher: React.FC = () => {
   };
 
   const getCurrentLanguageName = () => {
-    return i18n.language === 'ru' ? t('RUSSIAN', 'Русский') : t('ENGLISH', 'English');
+    switch (i18n.language) {
+      case 'es': return 'Español';
+      case 'fr': return 'Français';
+      case 'de': return 'Deutsch';
+      case 'ru': return 'Russian';
+      default: return 'English';
+    }
   };
 
   const getCurrentLanguageCode = () => {
-    return i18n.language === 'ru' ? 'RU' : 'EN';
+    switch (i18n.language) {
+      case 'es': return 'ES';
+      case 'fr': return 'FR';
+      case 'de': return 'DE';
+      case 'ru': return 'RU';
+      default: return 'EN';
+    }
   };
 
   return (
@@ -45,8 +57,36 @@ const LanguageSwitcher: React.FC = () => {
           className={i18n.language === 'en' ? 'bg-accent/50' : ''}
         >
           <span className="flex items-center gap-2">
-            <span className="text-sm font-medium">🇺🇸</span>
+            <span className="text-sm font-medium">EN</span>
             <span>{t('ENGLISH', 'English')}</span>
+          </span>
+        </DropdownMenuItem>
+        
+        <DropdownMenuItem 
+          onClick={() => changeLanguage('es')}
+          className={i18n.language === 'es' ? 'bg-accent/50' : ''}
+        >
+          <span className="flex items-center gap-2">
+            <span className="text-sm font-medium">🇪🇸</span>
+            <span>Español</span>
+          </span>
+        </DropdownMenuItem>
+        <DropdownMenuItem 
+          onClick={() => changeLanguage('fr')}
+          className={i18n.language === 'fr' ? 'bg-accent/50' : ''}
+        >
+          <span className="flex items-center gap-2">
+            <span className="text-sm font-medium">🇫🇷</span>
+            <span>Français</span>
+          </span>
+        </DropdownMenuItem>
+        <DropdownMenuItem 
+          onClick={() => changeLanguage('de')}
+          className={i18n.language === 'de' ? 'bg-accent/50' : ''}
+        >
+          <span className="flex items-center gap-2">
+            <span className="text-sm font-medium">🇩🇪</span>
+            <span>Deutsch</span>
           </span>
         </DropdownMenuItem>
         <DropdownMenuItem 

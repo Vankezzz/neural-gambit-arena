@@ -70,7 +70,7 @@ const PokerPage = () => {
   rounds.forEach((r, i) => {
     for (let e = 1; e <= 3; e++) {
       stages.push({
-        label: `Раунд ${r.round}`,
+        label: `Round ${r.round}`,
         sb: r.sb,
         bb: r.bb,
         ante: r.ante,
@@ -80,7 +80,7 @@ const PokerPage = () => {
   });
   if (finalStages.length > 0) {
     stages.push({
-      label: 'Финал',
+      label: 'Final',
       sb: finalStages[0].sb,
       bb: finalStages[0].bb,
       ante: finalStages[0].ante,
@@ -553,9 +553,9 @@ result = api.join_tournament(
           {/* Tournament Rounds Table */}
           <Card className="mb-12">
             <CardHeader>
-              <CardTitle>{t('ROUND_STRUCTURE', 'Структура раундов')}</CardTitle>
+              <CardTitle>{t('ROUND_STRUCTURE')}</CardTitle>
               <CardDescription>
-                {t('EACH_ROUND_DIVIDED', 'Каждый раунд разделен на 3 этапа с равным количеством раздач')}
+                {t('EACH_ROUND_DIVIDED')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -563,14 +563,14 @@ result = api.join_tournament(
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="min-w-[80px]">{t('ROUND', 'Раунд')}</TableHead>
-                      <TableHead className="min-w-[100px]">{t('SB_BB', 'SB / BB')}</TableHead>
-                      <TableHead className="min-w-[80px]">{t('ANTE', 'Анте')}</TableHead>
-                      <TableHead className="min-w-[120px]">{t('TOTAL_HANDS', 'Всего раздач')}</TableHead>
-                      <TableHead className="min-w-[150px]">{t('HANDS_PER_STAGE', 'Раздач в этапах (×3)')}</TableHead>
-                      <TableHead className="min-w-[100px]">{t('RE_ENTRY', 'Re-entry')}</TableHead>
-                      <TableHead className="min-w-[150px]">{t('BREAK_BEFORE_STAGE', 'Перерыв перед этапами')}</TableHead>
-                      <TableHead className="min-w-[180px]">{t('BREAK_BETWEEN_ROUNDS', 'Перерыв между раундами')}</TableHead>
+                      <TableHead className="min-w-[80px]">{t('ROUND')}</TableHead>
+                      <TableHead className="min-w-[100px]">{t('SB_BB')}</TableHead>
+                      <TableHead className="min-w-[80px]">{t('ANTE')}</TableHead>
+                      <TableHead className="min-w-[120px]">{t('TOTAL_HANDS')}</TableHead>
+                      <TableHead className="min-w-[150px]">{t('HANDS_PER_STAGE')}</TableHead>
+                      <TableHead className="min-w-[100px]">{t('RE_ENTRY')}</TableHead>
+                      <TableHead className="min-w-[150px]">{t('BREAK_BEFORE_STAGE')}</TableHead>
+                      <TableHead className="min-w-[180px]">{t('BREAK_BETWEEN_ROUNDS')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
